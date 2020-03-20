@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { pathOr, path, pipe, filter, prop, map } from 'ramda'
 import Img from 'gatsby-image'
 import SEO from '../components/seo'
+import Photo from '../components/Photo'
 
 // import Layout from '../components/layout'
 
@@ -38,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Home = styled.div`
   display: grid;
-  padding: 50vh 2rem;
+  padding: 50vh 1rem;
   grid-gap: 50vh;
   justify-items: center;
 
@@ -75,11 +76,6 @@ const TitleBlock = styled.div`
   }
 `
 
-const Photo = styled(Img)`
-  max-height: calc(100vh - 2rem);
-  width: 100%;
-`
-
 // Main
 // ----------------------------------------------------------------------------
 
@@ -106,16 +102,18 @@ export default ({ data }) => {
               <h2>{post.title}</h2>
               <p>{formatPostDate(post)}</p>
             </TitleBlock>
-            {post.photos.map(photo => (
-              <Photo
-                key={photo.id}
-                fluid={getPhotoFluid(photo)}
-                imgStyle={{
-                  objectFit: 'contain',
-                  objectPosition: '50% 50%',
-                }}
-              />
-            ))}
+            {post.photos.map(photo => {
+              const srcs = getPhotoFluid(photo)
+              console.log(srcs)
+              return (
+                <Photo
+                  key={photo.id}
+                  src={srcs.base64}
+                  srcSet={srcs.srcSet}
+                  alt={photo.title}
+                />
+              )
+            })}
           </Fragment>
         ))}
       </Home>
@@ -136,6 +134,7 @@ export const pageQuery = graphql`
           date
           photos {
             id
+            title
             localFile {
               id
               publicURL
