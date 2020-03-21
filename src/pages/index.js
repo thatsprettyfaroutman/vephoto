@@ -28,11 +28,15 @@ const formatPostDate = pipe(path(['date']), date =>
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
     background-color: #000;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
     font-size: 16px;
+
+    @media (max-width: 768px ) {
+      scroll-snap-type: initial;
+    }
   }
 `
 
@@ -97,14 +101,17 @@ export default ({ data }) => {
         <h1>VEPHOTO</h1>
         {posts.map(post => (
           <Fragment key={post.id}>
+            {console.log(post)}
             <TitleBlock>
               <h2>{post.title}</h2>
               <p>{formatPostDate(post)}</p>
             </TitleBlock>
             {post.photos.map(photo => {
-              const photoProps = getPhotoFluid(photo)
-              console.log(photo, photoProps)
+              if (!photo) {
+                return null
+              }
 
+              const photoProps = getPhotoFluid(photo)
               if (!photoProps) {
                 return null
               }

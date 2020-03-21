@@ -1,5 +1,6 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
+import { clamp } from 'ramda'
 import { animated, useSpring } from 'react-spring'
 import { BlurhashCanvas } from 'react-blurhash'
 
@@ -64,6 +65,13 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
       }
       const rect = el.getBoundingClientRect()
       const top = rect.top - window.innerHeight
+      // const scale = clamp(-1, 1, rect.top / window.innerHeight)
+
+      // el.style.transform = `perspective(${
+      //   window.innerHeight
+      // }px) rotate3d(1, 0, 0, ${scale * 5}deg)`
+      // el.style.opacity = 1 - Math.abs(scale) + 0.25
+
       if (top < window.innerHeight / 4) {
         setNear(true)
       }
