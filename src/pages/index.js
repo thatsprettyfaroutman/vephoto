@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { pathOr, path, pipe, filter, prop, map } from 'ramda'
 import SEO from '../components/seo'
 import Photo from '../components/Photo'
+import Map from '../components/Map'
 
 // import Layout from '../components/layout'
 
@@ -65,6 +66,7 @@ const Home = styled.div`
 
 const TitleBlock = styled.div`
   text-align: center;
+  width: 100%;
 
   > * {
     margin: 0;
@@ -105,6 +107,14 @@ export default ({ data }) => {
             <TitleBlock>
               <h2>{post.title}</h2>
               <p>{formatPostDate(post)}</p>
+              <Map
+                locations={[
+                  {
+                    name: post.title,
+                    coordinates: [post.location.lon, post.location.lat],
+                  },
+                ]}
+              />
             </TitleBlock>
             {post.photos.map(photo => {
               if (!photo) {
@@ -121,7 +131,7 @@ export default ({ data }) => {
                   {...photoProps}
                   key={photo.id}
                   alt={photo.title}
-                  blurhash={photo.blurhash}
+                  blurhash={photo.description}
                 />
               )
             })}
@@ -146,7 +156,7 @@ export const pageQuery = graphql`
           photos {
             id
             title
-            blurhash: description
+            description
             localFile {
               id
               publicURL

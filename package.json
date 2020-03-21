@@ -6,6 +6,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@vx/pattern": "^0.0.195",
     "babel-plugin-ramda": "^2.0.0",
     "babel-plugin-styled-components": "^1.10.7",
     "blurhash": "^1.1.3",
@@ -26,6 +27,7 @@
     "react-blurhash": "^0.1.2",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-simple-maps": "1.0.0-beta.0",
     "react-spring": "^8.0.27",
     "styled-components": "^5.0.1"
   },
