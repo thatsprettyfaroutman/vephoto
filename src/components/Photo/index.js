@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
-import { clamp } from 'ramda'
+// import { clamp } from 'ramda'
 import { animated, useSpring } from 'react-spring'
 import { BlurhashCanvas } from 'react-blurhash'
 
@@ -123,7 +123,7 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
     transform: loading ? 'scale3d(0.98, 0.98, 1)' : 'scale3d(1, 1, 1)',
   })
 
-  const blurWidth = Math.round(window ? window.innerWidth : 1024)
+  const blurWidth = Math.round(2048)
   const blurHeight = Math.round(blurWidth / aspectRatio)
 
   return (
