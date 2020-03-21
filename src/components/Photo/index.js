@@ -123,7 +123,7 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
     transform: loading ? 'scale3d(0.98, 0.98, 1)' : 'scale3d(1, 1, 1)',
   })
 
-  const blurWidth = Math.round(window.innerWidth)
+  const blurWidth = Math.round(window ? window.innerWidth : 1024)
   const blurHeight = Math.round(blurWidth / aspectRatio)
 
   return (

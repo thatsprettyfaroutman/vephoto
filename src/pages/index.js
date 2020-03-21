@@ -131,7 +131,7 @@ export default ({ data }) => {
                   {...photoProps}
                   key={photo.id}
                   alt={photo.title}
-                  blurhash={photo.description}
+                  blurhash={photo.blurhash}
                 />
               )
             })}
@@ -156,7 +156,7 @@ export const pageQuery = graphql`
           photos {
             id
             title
-            description
+            blurhash: description
             localFile {
               id
               publicURL
