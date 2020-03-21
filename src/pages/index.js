@@ -103,7 +103,6 @@ export default ({ data }) => {
         <h1>VEPHOTO</h1>
         {posts.map(post => (
           <Fragment key={post.id}>
-            {console.log(post)}
             <TitleBlock>
               <h2>{post.title}</h2>
               <p>{formatPostDate(post)}</p>

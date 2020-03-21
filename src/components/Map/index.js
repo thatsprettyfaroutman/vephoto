@@ -121,8 +121,9 @@ export default ({ locations = [], ...restProps }) => {
 
         {cachedGeographies}
 
-        {locations.map(location => (
+        {locations.map((location, i) => (
           <Annotation
+            key={i}
             subject={location.coordinates}
             dx={4 * 16}
             dy={-3 * 16}

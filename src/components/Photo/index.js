@@ -49,7 +49,15 @@ const Photo = styled.div`
   }
 `
 
-export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
+export default ({
+  src,
+  srcSet,
+  sizes,
+  blurhash,
+  aspectRatio,
+  alt,
+  ...restProps
+}) => {
   const ref = useRef(null)
   const [near, setNear] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -91,6 +99,8 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
     }
     const img = new Image()
     img.srcset = srcSet
+    img.src = src
+    img.sizes = sizes
     img.onload = () => {
       setTimeout(() => {
         if (ref && ref.current) {
@@ -98,14 +108,7 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
         }
       }, 1000)
     }
-  }, [near, loading, ref, srcSet])
-
-  useLayoutEffect(
-    () => () => {
-      ref.current = null
-    },
-    []
-  )
+  }, [near, loading, ref, src, srcSet, sizes])
 
   const config = {
     tension: 100,
@@ -131,7 +134,15 @@ export default ({ srcSet, blurhash, aspectRatio, alt, ...restProps }) => {
       <animated.div style={blurhashSpring}>
         <BlurhashCanvas hash={blurhash} width={blurWidth} height={blurHeight} />
       </animated.div>
-      {near && <animated.img style={photoSpring} srcSet={srcSet} alt={alt} />}
+      {near && (
+        <animated.img
+          style={photoSpring}
+          src={src}
+          srcSet={srcSet}
+          sizes={sizes}
+          alt={alt}
+        />
+      )}
     </Photo>
   )
 }
