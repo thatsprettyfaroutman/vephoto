@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { /*Link,*/ graphql } from 'gatsby'
 import { format } from 'date-fns'
 import { pathOr, path, pipe, filter, prop, map } from 'ramda'
-import Img from 'gatsby-image'
 import SEO from '../components/seo'
 import Photo from '../components/Photo'
 
@@ -103,14 +102,19 @@ export default ({ data }) => {
               <p>{formatPostDate(post)}</p>
             </TitleBlock>
             {post.photos.map(photo => {
-              const srcs = getPhotoFluid(photo)
-              console.log(srcs)
+              const photoProps = getPhotoFluid(photo)
+              console.log(photo, photoProps)
+
+              if (!photoProps) {
+                return null
+              }
+
               return (
                 <Photo
+                  {...photoProps}
                   key={photo.id}
-                  src={srcs.base64}
-                  srcSet={srcs.srcSet}
                   alt={photo.title}
+                  blurhash={photo.blurhash}
                 />
               )
             })}
@@ -135,6 +139,7 @@ export const pageQuery = graphql`
           photos {
             id
             title
+            blurhash: description
             localFile {
               id
               publicURL
